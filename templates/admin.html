@@ -26,25 +26,34 @@
       </div>
 
     </nav>
-    <h1>Administration</h1>
-    <a href="{{ url_for('add') }}">
-        <input type="button" value="Ajoutez site" class="btn btn-lg">
-        </input>
-    </a>
+    <section class="container-fluid body-container">
 
-     {% for adresse in adresse %}
-         <p>
-             {{ adresse[0] }} {{ adresse[1] }}
-             <a href="{{ url_for('edit', id=adresse[0]) }}">
-                <input type="button" value="editer" class="btn btn-primary btn-lg">
-                </input>
-             </a>
-             <a href="{{ url_for('suppr', id=adresse[0]) }}">
-                <input type="button" value="supprimer" class="btn btn-danger btn-lg">
-                </input>
-             </a>
-         </p><br>
-    {% endfor %}
-
-
+    <div class="col-lg-4 offset-lg-4">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h1>Administration</h1>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('add') }}">
+                        <input type="button" value="Ajoutez site" class="btn btn-lg">
+                        </input>
+                    </a>
+                    {% for site in sites %}
+                        <p>
+                            {{ site[0] }} {{ site[1] }}
+                            <a href="{{ url_for('edit', id=site[0]) }}">
+                                <input type="button" value="editer" class="btn btn-primary btn-lg">
+                                </input>
+                            </a>
+                            <a href="{{ url_for('delete', id=site[0]) }}">
+                                <input type="button" value="supprimer" class="btn btn-danger btn-lg">
+                                </input>
+                            </a>
+                        </p><br>
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+    </section>
+    <div id="flash-messages-container"/>
 {% endblock %}

@@ -32,14 +32,13 @@
 <section class="container-fluid body-container">
 
     <div class="container text-center">
-        <h1 class="show-site-title"><a href="{{ historic[0][0] }}" rel="nofollow" target="_blank">{{ historic[0][0]
-            }}</a>
+        <h1 class="show-site-title"><a href="{{ histo[0][0] }}" rel="nofollow" target="_blank">{{ histo[0][0]}}</a>
         </h1>
         <h2>Historique des status</h2>
 
         <ul class="show-site-historic">
-            {% for historic in historic %}
-                <li>{{ historic[2] }} : {{ historic[1] }} - </li>
+            {% for histo in histo %}
+                <li>{{ histo[2] }} : {{ histo[1] }}</li>
             {% endfor %}
         </ul>
     </div>
