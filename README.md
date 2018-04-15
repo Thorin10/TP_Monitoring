@@ -1,4 +1,4 @@
-# Pip install
+# Install
 
 Commencez par cloner le projet :
 git clone https://github.com/Thorin10/TP_Monitoring
@@ -29,4 +29,10 @@ Vous pouvez dès à présent lancer l'application avec la commande
 ```
 chmod +x app.py
 ./app.py
+```
+## Telegram BOT
+
+Vous pouvez discuter avec mon bot Telegram qui vous enverra un message vous notifiant si une erreur est survenue avec un/plusieurs site(s). Cliquer sur le liens si dessous puis sur "send message" pour entamer une conversation avec lui.
+```
+http://t.me/monitoring_status_web_iotbot
 ```
