@@ -30,7 +30,15 @@ Vous pouvez dès à présent lancer l'application avec la commande
 chmod +x app.py
 ./app.py
 ```
-Si vous ajoutez un site avec la fonction ajout de l'administrateur il faudra attendre 30 secondes pour que celui-ci apparaisse sur votre page principale. 
+Si vous ajoutez un site avec la fonction ajout de l'administrateur il faudra attendre 30 secondes pour que celui-ci apparaisse sur votre page principale.
+
+Si vous utilisez ma base de donée pour vous connecter vous devrez utiliser les identifiants:
+
+```
+Email: someone@yopmail.com
+Password: password
+```
+
 ## Telegram BOT
 
 Vous pouvez discuter avec mon bot Telegram qui vous enverra un message vous notifiant si une erreur est survenue avec un/plusieurs site(s). Cliquer sur le liens si dessous puis sur "send message" pour entamer une conversation avec lui.
