@@ -14,7 +14,6 @@ app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_object('secret_config')
 
-
 def connect_db():
     g.mysql_connection = mysql.connector.connect(
         host=app.config['DATABASE_HOST'],
@@ -58,7 +57,7 @@ def get_status(url):
 
 
 
-def status_all():
+def status():
     with app.app_context():
         db = get_db()
         db.execute('SELECT id, url FROM sites')
@@ -67,8 +66,12 @@ def status_all():
             id = site[0]
             url = site[1]
             status = get_status(url)
-            test = datetime.datetime.now()
-            date = test.strftime('%Y-%m-%d %H:%M:%S')
+            now = datetime.datetime.now()
+            date = now.strftime('%Y-%m-%d %H:%M:%S')
+            if (int(status) != 200):
+                erreur = "Une erreur est survenue avec l'un de vos sites !! "
+                params = {'chat_id': 580145869, 'text': erreur}
+                requests.post("https://api.telegram.org/bot547787132:AAHrylI4qzQ8lyPJVUvUrYQbWzJdGOHoYPo/" + "sendMessage", data=params)
             db = get_db()
             db.execute('INSERT INTO historic (id_web, last_request, answer) VALUES (%(id)s, %(date)s, %(status)s)', {'id': id, 'date': date, 'status': status})
         commit()
@@ -77,9 +80,9 @@ def status_all():
 scheduler = BackgroundScheduler()
 scheduler.start()
 scheduler.add_job(
-    func=status_all,
-    trigger=IntervalTrigger(seconds=2),
-    id='status_all',
+    func=status,
+    trigger=IntervalTrigger(seconds=30),
+    id='status',
     name='Ajout status',
     replace_existing=True)
 atexit.register(lambda: scheduler.shutdown())
@@ -144,7 +147,7 @@ def add():
         data.execute('INSERT INTO sites (url) VALUES (%(temp)s)', {'temp': temp})
         commit()
         return redirect(url_for('admin'))
-    return render_template('admin_add.html')
+    return render_template('add_sites.html')
 
 @app.route('/admin/editer/<int:id>', methods=['GET', 'POST'])
 def edit(id):
@@ -159,7 +162,7 @@ def edit(id):
     else:
         data.execute('SELECT id, url FROM sites WHERE id = %(id)s', {'id': id})
         page = data.fetchone()
-        return render_template('admin_edit.html', user=session['user'], sites=page)
+        return render_template('edit_sites.html', user=session['user'], sites=page)
 
 @app.route('/admin/supprimer/<int:id>', methods=['GET', 'POST'])
 def delete(id):
@@ -173,7 +176,7 @@ def delete(id):
     else:
         data.execute('SELECT id, url FROM sites WHERE id = %(id)s', {'id': id})
         page = data.fetchone()
-        return render_template('admin_sup.html', user=session['user'], sites=page)
+        return render_template('suppr_sites.html', user=session['user'], sites=page)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
